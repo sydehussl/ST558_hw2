@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -100,9 +135,82 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="title" class="level2">
-<h2 class="anchored" data-anchor-id="title">title</h2>
-<p>test chris branch</p>
+<section id="chriss-version" class="level1">
+<h1>Chris’s Version</h1>
+</section>
+<section id="task-1-basic-vector-practice" class="level1">
+<h1>Task 1: Basic Vector Practice</h1>
+<p>We start by creating two atomic vectors for our sample data and naming them via the given scheme:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create vectors</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pre <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">130</span>, <span class="dv">128</span>, <span class="dv">116</span>, <span class="dv">124</span>, <span class="dv">133</span>, <span class="dv">134</span>, <span class="dv">118</span>, <span class="dv">126</span>, <span class="dv">114</span>, <span class="dv">127</span>, <span class="dv">141</span>, <span class="dv">138</span>, <span class="dv">128</span>, <span class="dv">140</span>, <span class="dv">137</span>, <span class="dv">131</span>, <span class="dv">120</span>, <span class="dv">128</span>, <span class="dv">139</span>, <span class="dv">135</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">114</span>, <span class="dv">98</span>, <span class="dv">113</span>, <span class="dv">99</span>, <span class="dv">107</span>, <span class="dv">116</span>, <span class="dv">113</span>, <span class="dv">111</span>, <span class="dv">119</span>, <span class="dv">117</span>, <span class="dv">101</span>, <span class="dv">119</span>, <span class="dv">130</span>, <span class="dv">122</span>, <span class="dv">106</span>, <span class="dv">106</span>, <span class="dv">124</span>, <span class="dv">102</span>, <span class="dv">117</span>, <span class="dv">113</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># name vectors</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pre) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Subject"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(post) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Subject"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># preview</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Subject_1 Subject_2 Subject_3 Subject_4 Subject_5 Subject_6 
+      130       128       116       124       133       134 </code></pre>
+</div>
+</div>
+<p>Now that we have our vectors, we can start performing operations on them:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create delta vector</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> pre <span class="sc">-</span> post</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(delta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Subject_1 Subject_2 Subject_3 Subject_4 Subject_5 Subject_6 
+       16        30         3        25        26        18 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find mean delta</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mean_delta <span class="ot">&lt;-</span> <span class="fu">mean</span>(delta)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>mean_delta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17</code></pre>
+</div>
+</div>
+<p>The patients in our sample experienced a mean decrease of 17 units during the study</p>
+<p>Next, we’ll use the <code>which()</code> function to determine which patients saw a positive decrease in blood pressure. I store these values in a vector called <code>pos_delta_idx</code> so that we can subset the original <code>delta</code> vector for the following question</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pos_delta_idx <span class="ot">&lt;-</span> <span class="fu">which</span>(delta <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>pos_delta_idx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 
+         1          2          3          4          5          6          7 
+ Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 
+         8         10         11         12         14         15         16 
+Subject_18 Subject_19 Subject_20 
+        18         19         20 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pos_delta <span class="ot">&lt;-</span> delta[pos_delta_idx]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>pos_delta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 
+        16         30          3         25         26         18          5 
+ Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 
+        15         10         40         19         18         31         25 
+Subject_18 Subject_19 Subject_20 
+        26         22         22 </code></pre>
+</div>
+</div>
+<p>Lastly, we can determine the mean decrease among the patients who experienced a positive decrease:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mean_pos_delta <span class="ot">&lt;-</span> <span class="fu">mean</span>(pos_delta)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>mean_pos_delta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.64706</code></pre>
+</div>
+</div>
+<p>Patients who experienced a positive decrease had a mean decrease of 20.647 units.</p>
 
 
 </section>

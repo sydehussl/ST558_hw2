@@ -4,13 +4,6 @@
     "href": "ST558_hw2.html",
     "title": "ST558 Homework 2",
     "section": "",
-    "text": "test chris branch"
-  },
-  {
-    "objectID": "ST558_hw2.html#title",
-    "href": "ST558_hw2.html#title",
-    "title": "ST558 Homework 2",
-    "section": "",
-    "text": "test chris branch"
+    "text": "Chris’s Version\n\n\nTask 1: Basic Vector Practice\nWe start by creating two atomic vectors for our sample data and naming them via the given scheme:\n\n# create vectors\npre &lt;- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)\npost &lt;- c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)\n\n# name vectors\nnames(pre) &lt;- paste(\"Subject\", 1:20, sep = \"_\")\nnames(post) &lt;- paste(\"Subject\", 1:20, sep = \"_\")\n\n# preview\nhead(pre)\n\nSubject_1 Subject_2 Subject_3 Subject_4 Subject_5 Subject_6 \n      130       128       116       124       133       134 \n\n\nNow that we have our vectors, we can start performing operations on them:\n\n# create delta vector\ndelta &lt;- pre - post\n\nhead(delta)\n\nSubject_1 Subject_2 Subject_3 Subject_4 Subject_5 Subject_6 \n       16        30         3        25        26        18 \n\n# find mean delta\nmean_delta &lt;- mean(delta)\n\nmean_delta\n\n[1] 17\n\n\nThe patients in our sample experienced a mean decrease of 17 units during the study\nNext, we’ll use the which() function to determine which patients saw a positive decrease in blood pressure. I store these values in a vector called pos_delta_idx so that we can subset the original delta vector for the following question\n\npos_delta_idx &lt;- which(delta &gt; 0)\n\npos_delta_idx\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n         1          2          3          4          5          6          7 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n         8         10         11         12         14         15         16 \nSubject_18 Subject_19 Subject_20 \n        18         19         20 \n\npos_delta &lt;- delta[pos_delta_idx]\n\npos_delta\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n        15         10         40         19         18         31         25 \nSubject_18 Subject_19 Subject_20 \n        26         22         22 \n\n\nLastly, we can determine the mean decrease among the patients who experienced a positive decrease:\n\nmean_pos_delta &lt;- mean(pos_delta)\n\nmean_pos_delta\n\n[1] 20.64706\n\n\nPatients who experienced a positive decrease had a mean decrease of 20.647 units."
   }
 ]

@@ -4,5 +4,53 @@ format: html
 editor: source
 ---
 
-## title
-test chris branch
+# Chris's Version
+
+# Task 1: Basic Vector Practice
+We start by creating two atomic vectors for our sample data and naming them via the given scheme:
+```{r}
+# create vectors
+pre <- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)
+post <- c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)
+
+# name vectors
+names(pre) <- paste("Subject", 1:20, sep = "_")
+names(post) <- paste("Subject", 1:20, sep = "_")
+
+# preview
+head(pre)
+```
+
+Now that we have our vectors, we can start performing operations on them:
+```{r}
+# create delta vector
+delta <- pre - post
+
+head(delta)
+
+# find mean delta
+mean_delta <- mean(delta)
+
+mean_delta
+```
+The patients in our sample experienced a mean decrease of `r mean_delta` units during the study
+
+Next, we'll use the `which()` function to determine which patients saw a positive decrease in blood pressure. I store these values in a vector called `pos_delta_idx` so that we can subset the original `delta` vector for the following question
+```{r}
+pos_delta_idx <- which(delta > 0)
+
+pos_delta_idx
+
+pos_delta <- delta[pos_delta_idx]
+
+pos_delta
+
+```
+Lastly, we can determine the mean decrease among the patients who experienced a positive decrease:
+```{r}
+mean_pos_delta <- mean(pos_delta)
+
+mean_pos_delta
+```
+Patients who experienced a positive decrease had a mean decrease of `r round(mean_pos_delta, 3)` units.
+
