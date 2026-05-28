@@ -15,3 +15,17 @@ names(post_trtmt) <- paste("Subject", 1:20, sep = "_")
 ```
 
 
+```{r}
+trtmt_diff <- pre_trtmt - post_trtmt
+
+avg_trtmt_diff <- mean(trtmt_diff)
+dec_bp <- which(trtmt_diff > 0)
+dec_bp
+
+mean(trtmt_diff[trtmt_diff > 0])
+```
+
+```{r}
+
+```
+
