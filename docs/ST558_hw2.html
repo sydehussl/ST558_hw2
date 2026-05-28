@@ -137,9 +137,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="chriss-version" class="level1">
 <h1>Chris’s Version</h1>
-</section>
-<section id="task-1-basic-vector-practice" class="level1">
-<h1>Task 1: Basic Vector Practice</h1>
+<section id="task-1-basic-vector-practice" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-basic-vector-practice">Task 1: Basic Vector Practice</h2>
 <p>We start by creating two atomic vectors for our sample data and naming them via the given scheme:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create vectors</span></span>
@@ -211,8 +210,224 @@ Subject_18 Subject_19 Subject_20
 </div>
 </div>
 <p>Patients who experienced a positive decrease had a mean decrease of 20.647 units.</p>
+</section>
+<section id="task-2-basic-data-frame-practice" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-basic-data-frame-practice">Task 2: Basic Data Frame Practice</h2>
+<p>Now we’re using data frames. I’m having to re-learn base R functions because I’m used to dplyr haha</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create patient data frame</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>patient_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">patient =</span> <span class="fu">names</span>(pre),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pre_bp =</span> pre,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">post_bp =</span> post,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">diff =</span> delta,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">row.names =</span> <span class="cn">NULL</span> <span class="co"># removes vestigial "subject_x" row names </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                        )</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># preview</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(patient_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    patient pre_bp post_bp diff
+1 Subject_1    130     114   16
+2 Subject_2    128      98   30
+3 Subject_3    116     113    3
+4 Subject_4    124      99   25
+5 Subject_5    133     107   26
+6 Subject_6    134     116   18</code></pre>
+</div>
+</div>
+<p>Sweet, we have our data frame. I removed the row names inherited from our vectors because the data frame already has an index column. Now we can subset it and see which patients had negative differences in blood pressure during the experiment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset df</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>neg_diff_bp <span class="ot">&lt;-</span> patient_df[patient_df<span class="sc">$</span>diff <span class="sc">&lt;</span> <span class="dv">0</span>,]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>neg_diff_bp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      patient pre_bp post_bp diff
+9   Subject_9    114     119   -5
+13 Subject_13    128     130   -2
+17 Subject_17    120     124   -4</code></pre>
+</div>
+</div>
+<p><em>Subjects 9, 13, and 17</em> experienced a negative difference in blood pressure.</p>
+<p>Next, we’ll make an indicator variable to flag patients with a post-experiment BP of less than 120.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add low_post_bp indicator using vectorized ifelse (when do we learn mutate!!)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>patient_df<span class="sc">$</span>low_post_bp <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(patient_df<span class="sc">$</span>post_bp <span class="sc">&lt;</span> <span class="dv">120</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(patient_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    patient pre_bp post_bp diff low_post_bp
+1 Subject_1    130     114   16        TRUE
+2 Subject_2    128      98   30        TRUE
+3 Subject_3    116     113    3        TRUE
+4 Subject_4    124      99   25        TRUE
+5 Subject_5    133     107   26        TRUE
+6 Subject_6    134     116   18        TRUE</code></pre>
+</div>
+</div>
+<p>It looks like our indicator flag worked. Lastly we’ll print the table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print table with given code</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(patient_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">patient</th>
+<th style="text-align: right;">pre_bp</th>
+<th style="text-align: right;">post_bp</th>
+<th style="text-align: right;">diff</th>
+<th style="text-align: left;">low_post_bp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Subject_1</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_2</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_3</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">113</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_4</td>
+<td style="text-align: right;">124</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_5</td>
+<td style="text-align: right;">133</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_6</td>
+<td style="text-align: right;">134</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_7</td>
+<td style="text-align: right;">118</td>
+<td style="text-align: right;">113</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_8</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">111</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_9</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">-5</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_10</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">117</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_11</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_12</td>
+<td style="text-align: right;">138</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_13</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">-2</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_14</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">122</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_15</td>
+<td style="text-align: right;">137</td>
+<td style="text-align: right;">106</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_16</td>
+<td style="text-align: right;">131</td>
+<td style="text-align: right;">106</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_17</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">124</td>
+<td style="text-align: right;">-4</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_18</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_19</td>
+<td style="text-align: right;">139</td>
+<td style="text-align: right;">117</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_20</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">113</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -6,7 +6,7 @@ editor: source
 
 # Chris's Version
 
-# Task 1: Basic Vector Practice
+## Task 1: Basic Vector Practice
 We start by creating two atomic vectors for our sample data and naming them via the given scheme:
 ```{r}
 # create vectors
@@ -54,3 +54,38 @@ mean_pos_delta
 ```
 Patients who experienced a positive decrease had a mean decrease of `r round(mean_pos_delta, 3)` units.
 
+## Task 2: Basic Data Frame Practice
+Now we're using data frames. I'm having to re-learn base R functions because I'm used to dplyr haha
+```{r}
+# create patient data frame
+patient_df <- data.frame(patient = names(pre),
+                         pre_bp = pre,
+                         post_bp = post,
+                         diff = delta,
+                         row.names = NULL # removes vestigial "subject_x" row names 
+                        )
+
+# preview
+head(patient_df)
+```
+Sweet, we have our data frame. I removed the row names inherited from our vectors because the data frame already has an index column. Now we can subset it and see which patients had negative differences in blood pressure during the experiment:
+```{r}
+# subset df
+neg_diff_bp <- patient_df[patient_df$diff < 0,]
+
+neg_diff_bp
+```
+*Subjects 9, 13, and 17* experienced a negative difference in blood pressure.
+
+Next, we'll make an indicator variable to flag patients with a post-experiment BP of less than 120.
+```{r}
+# add low_post_bp indicator using vectorized ifelse (when do we learn mutate!!)
+patient_df$low_post_bp <- ifelse(patient_df$post_bp < 120, TRUE, FALSE)
+
+head(patient_df)
+```
+It looks like our indicator flag worked. Lastly we'll print the table:
+```{r}
+# print table with given code
+knitr::kable(patient_df)
+```
