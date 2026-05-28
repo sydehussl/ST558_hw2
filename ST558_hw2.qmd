@@ -1,6 +1,9 @@
 ---
 title: "ST558 Homework 2"
-format: html
+format:
+  html:
+    toc: true
+    theme: cosmo
 editor: source
 ---
 
@@ -62,7 +65,7 @@ patient_df <- data.frame(patient = names(pre),
                          pre_bp = pre,
                          post_bp = post,
                          diff = delta,
-                         row.names = NULL # removes vestigial "subject_x" row names 
+                         row.names = NULL # removes goofy "subject_x" row names 
                         )
 
 # preview
@@ -75,7 +78,7 @@ neg_diff_bp <- patient_df[patient_df$diff < 0,]
 
 neg_diff_bp
 ```
-*Subjects 9, 13, and 17* experienced a negative difference in blood pressure.
+**Subjects 9, 13, and 17** experienced a negative difference in blood pressure.
 
 Next, we'll make an indicator variable to flag patients with a post-experiment BP of less than 120.
 ```{r}
@@ -89,3 +92,125 @@ It looks like our indicator flag worked. Lastly we'll print the table:
 # print table with given code
 knitr::kable(patient_df)
 ```
+
+## Task 3: List Practice
+For this part, we start by making a placebo data frame with the same structure as the previous.
+```{r}
+# treatment data
+placebo_pre <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+placebo_post <- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+
+# make df with all the bells and whistles
+placebo_df <- data.frame(patient = paste("Subject", 1:length(placebo_pre), sep = "_"),
+                         pre_bp = placebo_pre,
+                         post_bp = placebo_post,
+                         diff = placebo_pre - placebo_post,
+                         low_post_bp = ifelse(placebo_post < 120, TRUE, FALSE),
+                         row.names = NULL # removes vestigial "subject_x" row names
+                        )
+               
+# preview
+head(placebo_df)
+```
+Following part 2, we create a list with both data frames and access the elements a few different ways:
+```{r}
+# make list
+treatment_list <- list(treatment = patient_df,
+                       placebo = placebo_df)
+
+# accessing first list 3 ways:
+treatment_list[1] # basic bracket
+treatment_list[[1]] # simplified
+treatment_list$treatment # using $
+
+# accessing the pre_bp column from the placebo DF
+treatment_list$placebo[,"post_bp", drop = FALSE]
+```
+Very cool.
+
+## Task 4: Control Loop Practice
+We're now using a `for` loop to iterate through each data frame and create levels of a new variable called `status`. I'm choosing to make `status` a factor instead of a character variable since we have discrete, unchanging levels.
+```{r}
+# create status column
+treatment_list$treatment$status <- factor(character(nrow(treatment_list$treatment)),
+                                          levels = (c("Optimal", "Borderline", "High")),
+                                          ordered = TRUE)
+treatment_list$placebo$status <- factor(character(nrow(treatment_list$placebo)),
+                                        levels = (c("Optimal", "Borderline", "High")),
+                                        ordered = TRUE)
+
+# assign levels of status to each obs in treatment df
+for(i in 1:nrow(treatment_list$treatment)) {
+  if(treatment_list$treatment$post_bp[i] > 130) {
+    treatment_list$treatment$status[i] <- "High"
+  } else if(treatment_list$treatment$post_bp[i] >= 120) {
+    treatment_list$treatment$status[i] <- "Borderline"
+  } else {
+    treatment_list$treatment$status[i] <- "Optimal"
+  }
+}
+
+# preview
+head(treatment_list$treatment[,-2])
+```
+Looks good, we can now repeat the same thing for the placebo data frame:
+```{r}
+# assign levels of status to each obs in placebo df
+for(i in 1:nrow(treatment_list$placebo)) {
+  if(treatment_list$placebo$post_bp[i] > 130) {
+    treatment_list$placebo$status[i] <- "High"
+  } else if(treatment_list$placebo$post_bp[i] >= 120) {
+    treatment_list$placebo$status[i] <- "Borderline"
+  } else {
+    treatment_list$placebo$status[i] <- "Optimal"
+  }
+}
+
+# preview
+head(treatment_list$placebo[,-2])
+```
+Beautiful!
+
+## Task 5: Function Writing
+Originally I used a for loop to traverse each element in the `stat_vec` vector but then I realized `lapply()` and `sapply()` are base R. Much more succinct, not that statisticians care about silly things like runtime.
+```{r}
+find.stats <- function(treatment_list, stat = "mean") {
+  # pull relevant columns from treatment/placebo
+  treatment_data <- treatment_list$treatment[c("pre_bp", "post_bp", "diff")]
+  placebo_data <- treatment_list$placebo[c("pre_bp", "post_bp", "diff")]
+  
+  # concatenate data, make result vector
+  stat_vec <- c(treatment_data, placebo_data)
+  result_vec <- sapply(stat_vec, get(stat))
+
+  # make name vector using paste
+  names_vec <- paste(rep(c("treatment", "placebo"), each = 3),
+                     rep(c("pre_bp", "post_bp", "diff"), 2),
+                     rep(stat, 6),
+                     sep = "_")
+  
+  # name result vector then return it
+  names(result_vec) <- names_vec
+  return(result_vec)
+}
+```
+
+Before we test out the function, I'm calling `summary()` to confirm that the values are accurate:
+```{r}
+# top output is treatment, bottom is placebo
+summary(patient_df[c("pre_bp", "post_bp", "diff")])
+summary(placebo_df[c("pre_bp", "post_bp", "diff")])
+```
+
+Now to try out our function (without specifying the stat):
+```{r}
+find.stats(treatment_list)
+```
+It's alive! The values are correct so we can see how it does with other statistics:
+```{r}
+find.stats(treatment_list, "var")
+find.stats(treatment_list, "sd")
+find.stats(treatment_list, "min")
+find.stats(treatment_list, "max")
+```
+A wall of stats and no errors. Fantastic.
