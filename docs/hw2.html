@@ -133,6 +133,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="task-1" class="level2">
+<h2 class="anchored" data-anchor-id="task-1">Task 1</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating bp vectors pre-treatment</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pre_bp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">130</span>, <span class="dv">128</span>, <span class="dv">116</span>, <span class="dv">124</span>, <span class="dv">133</span>, <span class="dv">134</span>, <span class="dv">118</span>, <span class="dv">126</span>, <span class="dv">114</span>, <span class="dv">127</span>, <span class="dv">141</span>, <span class="dv">138</span>, <span class="dv">128</span>, <span class="dv">140</span>, <span class="dv">137</span>, <span class="dv">131</span>, <span class="dv">120</span>, <span class="dv">128</span>, <span class="dv">139</span>, <span class="dv">135</span>)</span>
@@ -140,34 +142,504 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#creating bp vectors post-treatment</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>post_bp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">114</span>, <span class="dv">98</span>, <span class="dv">113</span>, <span class="dv">99</span>, <span class="dv">107</span>, <span class="dv">116</span>, <span class="dv">113</span>, <span class="dv">111</span>, <span class="dv">119</span>, <span class="dv">117</span>, <span class="dv">101</span>, <span class="dv">119</span>, <span class="dv">130</span>, <span class="dv">122</span>, <span class="dv">106</span>, <span class="dv">106</span>, <span class="dv">124</span>, <span class="dv">102</span>, <span class="dv">117</span>, <span class="dv">113</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"Subject"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">sep =</span> <span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "Subject_1"  "Subject_2"  "Subject_3"  "Subject_4"  "Subject_5" 
- [6] "Subject_6"  "Subject_7"  "Subject_8"  "Subject_9"  "Subject_10"
-[11] "Subject_11" "Subject_12" "Subject_13" "Subject_14" "Subject_15"
-[16] "Subject_16" "Subject_17" "Subject_18" "Subject_19" "Subject_20"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#calculating difference</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>diff_bp <span class="ot">&lt;-</span> post_bp<span class="sc">-</span>pre_bp</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>diff_bp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>bp_subjects <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Subject"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#calculating difference</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>diff_bp <span class="ot">&lt;-</span> post_bp<span class="sc">-</span>pre_bp</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>diff_bp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] -16 -30  -3 -25 -26 -18  -5 -15   5 -10 -40 -19   2 -18 -31 -25   4 -26 -22
 [20] -22</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(diff_bp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#mean of difference</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(diff_bp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -17</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> <span class="fu">which</span>(diff_bp <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(subset_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> <span class="fu">which</span>(diff_bp <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(subset_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13</code></pre>
 </div>
 </div>
+</section>
+<section id="task-2" class="level2">
+<h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating data frame</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">subjects=</span>bp_subjects, pre_bp, post_bp, diff_bp)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> bp[bp<span class="sc">$</span>diff_bp <span class="sc">&lt;</span> <span class="dv">0</span>,]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>subset_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     subjects pre_bp post_bp diff_bp
+1   Subject_1    130     114     -16
+2   Subject_2    128      98     -30
+3   Subject_3    116     113      -3
+4   Subject_4    124      99     -25
+5   Subject_5    133     107     -26
+6   Subject_6    134     116     -18
+7   Subject_7    118     113      -5
+8   Subject_8    126     111     -15
+10 Subject_10    127     117     -10
+11 Subject_11    141     101     -40
+12 Subject_12    138     119     -19
+14 Subject_14    140     122     -18
+15 Subject_15    137     106     -31
+16 Subject_16    131     106     -25
+18 Subject_18    128     102     -26
+19 Subject_19    139     117     -22
+20 Subject_20    135     113     -22</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span>post_bp_less120 <span class="ot">&lt;-</span> bp<span class="sc">$</span>post_bp <span class="sc">&lt;</span> <span class="dv">120</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>bp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     subjects pre_bp post_bp diff_bp post_bp_less120
+1   Subject_1    130     114     -16            TRUE
+2   Subject_2    128      98     -30            TRUE
+3   Subject_3    116     113      -3            TRUE
+4   Subject_4    124      99     -25            TRUE
+5   Subject_5    133     107     -26            TRUE
+6   Subject_6    134     116     -18            TRUE
+7   Subject_7    118     113      -5            TRUE
+8   Subject_8    126     111     -15            TRUE
+9   Subject_9    114     119       5            TRUE
+10 Subject_10    127     117     -10            TRUE
+11 Subject_11    141     101     -40            TRUE
+12 Subject_12    138     119     -19            TRUE
+13 Subject_13    128     130       2           FALSE
+14 Subject_14    140     122     -18           FALSE
+15 Subject_15    137     106     -31            TRUE
+16 Subject_16    131     106     -25            TRUE
+17 Subject_17    120     124       4           FALSE
+18 Subject_18    128     102     -26            TRUE
+19 Subject_19    139     117     -22            TRUE
+20 Subject_20    135     113     -22            TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(bp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">subjects</th>
+<th style="text-align: right;">pre_bp</th>
+<th style="text-align: right;">post_bp</th>
+<th style="text-align: right;">diff_bp</th>
+<th style="text-align: left;">post_bp_less120</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Subject_1</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">-16</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_2</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">-30</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_3</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">113</td>
+<td style="text-align: right;">-3</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_4</td>
+<td style="text-align: right;">124</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">-25</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_5</td>
+<td style="text-align: right;">133</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">-26</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_6</td>
+<td style="text-align: right;">134</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">-18</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_7</td>
+<td style="text-align: right;">118</td>
+<td style="text-align: right;">113</td>
+<td style="text-align: right;">-5</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_8</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">111</td>
+<td style="text-align: right;">-15</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_9</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_10</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">117</td>
+<td style="text-align: right;">-10</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_11</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">-40</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_12</td>
+<td style="text-align: right;">138</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">-19</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_13</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_14</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">122</td>
+<td style="text-align: right;">-18</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_15</td>
+<td style="text-align: right;">137</td>
+<td style="text-align: right;">106</td>
+<td style="text-align: right;">-31</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_16</td>
+<td style="text-align: right;">131</td>
+<td style="text-align: right;">106</td>
+<td style="text-align: right;">-25</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_17</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">124</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_18</td>
+<td style="text-align: right;">128</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">-26</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subject_19</td>
+<td style="text-align: right;">139</td>
+<td style="text-align: right;">117</td>
+<td style="text-align: right;">-22</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subject_20</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">113</td>
+<td style="text-align: right;">-22</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="task-3" class="level2">
+<h2 class="anchored" data-anchor-id="task-3">Task 3</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating vectors</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>placebo_pre <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">138</span>, <span class="dv">135</span>, <span class="dv">147</span>, <span class="dv">117</span>, <span class="dv">152</span>, <span class="dv">134</span>, <span class="dv">114</span>, <span class="dv">121</span>, <span class="dv">131</span>, <span class="dv">130</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>placebo_post <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">105</span>, <span class="dv">136</span>, <span class="dv">123</span>, <span class="dv">130</span>, <span class="dv">134</span>, <span class="dv">143</span>, <span class="dv">135</span>, <span class="dv">139</span>, <span class="dv">120</span>, <span class="dv">124</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>placebo_subjects <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Subject"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#calculating difference</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>placebo_diff_bp <span class="ot">&lt;-</span> placebo_post<span class="sc">-</span>placebo_pre</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#creating data frame</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>placebo <span class="ot">&lt;-</span><span class="fu">data.frame</span>(placebo_subjects, placebo_pre, placebo_post, placebo_diff_bp)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> placebo[placebo<span class="sc">$</span>placebo_diff_bp <span class="sc">&lt;</span> <span class="dv">0</span>,]</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>subset_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   placebo_subjects placebo_pre placebo_post placebo_diff_bp
+1         Subject_1         138          105             -33
+3         Subject_3         147          123             -24
+5         Subject_5         152          134             -18
+9         Subject_9         131          120             -11
+10       Subject_10         130          124              -6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>placebo<span class="sc">$</span>placebo_post_bp_less120 <span class="ot">&lt;-</span> placebo<span class="sc">$</span>placebo_post <span class="sc">&lt;</span> <span class="dv">120</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>placebo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   placebo_subjects placebo_pre placebo_post placebo_diff_bp
+1         Subject_1         138          105             -33
+2         Subject_2         135          136               1
+3         Subject_3         147          123             -24
+4         Subject_4         117          130              13
+5         Subject_5         152          134             -18
+6         Subject_6         134          143               9
+7         Subject_7         114          135              21
+8         Subject_8         121          139              18
+9         Subject_9         131          120             -11
+10       Subject_10         130          124              -6
+   placebo_post_bp_less120
+1                     TRUE
+2                    FALSE
+3                    FALSE
+4                    FALSE
+5                    FALSE
+6                    FALSE
+7                    FALSE
+8                    FALSE
+9                    FALSE
+10                   FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#creating list with both data frames</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>element_list <span class="ot">&lt;-</span><span class="fu">list</span>(<span class="at">treatment =</span> bp, <span class="at">placebo =</span> placebo)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>element_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$treatment
+     subjects pre_bp post_bp diff_bp post_bp_less120
+1   Subject_1    130     114     -16            TRUE
+2   Subject_2    128      98     -30            TRUE
+3   Subject_3    116     113      -3            TRUE
+4   Subject_4    124      99     -25            TRUE
+5   Subject_5    133     107     -26            TRUE
+6   Subject_6    134     116     -18            TRUE
+7   Subject_7    118     113      -5            TRUE
+8   Subject_8    126     111     -15            TRUE
+9   Subject_9    114     119       5            TRUE
+10 Subject_10    127     117     -10            TRUE
+11 Subject_11    141     101     -40            TRUE
+12 Subject_12    138     119     -19            TRUE
+13 Subject_13    128     130       2           FALSE
+14 Subject_14    140     122     -18           FALSE
+15 Subject_15    137     106     -31            TRUE
+16 Subject_16    131     106     -25            TRUE
+17 Subject_17    120     124       4           FALSE
+18 Subject_18    128     102     -26            TRUE
+19 Subject_19    139     117     -22            TRUE
+20 Subject_20    135     113     -22            TRUE
+
+$placebo
+   placebo_subjects placebo_pre placebo_post placebo_diff_bp
+1         Subject_1         138          105             -33
+2         Subject_2         135          136               1
+3         Subject_3         147          123             -24
+4         Subject_4         117          130              13
+5         Subject_5         152          134             -18
+6         Subject_6         134          143               9
+7         Subject_7         114          135              21
+8         Subject_8         121          139              18
+9         Subject_9         131          120             -11
+10       Subject_10         130          124              -6
+   placebo_post_bp_less120
+1                     TRUE
+2                    FALSE
+3                    FALSE
+4                    FALSE
+5                    FALSE
+6                    FALSE
+7                    FALSE
+8                    FALSE
+9                    FALSE
+10                   FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#accessing list three different ways</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>element_list[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     subjects pre_bp post_bp diff_bp post_bp_less120
+1   Subject_1    130     114     -16            TRUE
+2   Subject_2    128      98     -30            TRUE
+3   Subject_3    116     113      -3            TRUE
+4   Subject_4    124      99     -25            TRUE
+5   Subject_5    133     107     -26            TRUE
+6   Subject_6    134     116     -18            TRUE
+7   Subject_7    118     113      -5            TRUE
+8   Subject_8    126     111     -15            TRUE
+9   Subject_9    114     119       5            TRUE
+10 Subject_10    127     117     -10            TRUE
+11 Subject_11    141     101     -40            TRUE
+12 Subject_12    138     119     -19            TRUE
+13 Subject_13    128     130       2           FALSE
+14 Subject_14    140     122     -18           FALSE
+15 Subject_15    137     106     -31            TRUE
+16 Subject_16    131     106     -25            TRUE
+17 Subject_17    120     124       4           FALSE
+18 Subject_18    128     102     -26            TRUE
+19 Subject_19    139     117     -22            TRUE
+20 Subject_20    135     113     -22            TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>element_list[[<span class="st">"treatment"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     subjects pre_bp post_bp diff_bp post_bp_less120
+1   Subject_1    130     114     -16            TRUE
+2   Subject_2    128      98     -30            TRUE
+3   Subject_3    116     113      -3            TRUE
+4   Subject_4    124      99     -25            TRUE
+5   Subject_5    133     107     -26            TRUE
+6   Subject_6    134     116     -18            TRUE
+7   Subject_7    118     113      -5            TRUE
+8   Subject_8    126     111     -15            TRUE
+9   Subject_9    114     119       5            TRUE
+10 Subject_10    127     117     -10            TRUE
+11 Subject_11    141     101     -40            TRUE
+12 Subject_12    138     119     -19            TRUE
+13 Subject_13    128     130       2           FALSE
+14 Subject_14    140     122     -18           FALSE
+15 Subject_15    137     106     -31            TRUE
+16 Subject_16    131     106     -25            TRUE
+17 Subject_17    120     124       4           FALSE
+18 Subject_18    128     102     -26            TRUE
+19 Subject_19    139     117     -22            TRUE
+20 Subject_20    135     113     -22            TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>element_list<span class="sc">$</span>treatment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     subjects pre_bp post_bp diff_bp post_bp_less120
+1   Subject_1    130     114     -16            TRUE
+2   Subject_2    128      98     -30            TRUE
+3   Subject_3    116     113      -3            TRUE
+4   Subject_4    124      99     -25            TRUE
+5   Subject_5    133     107     -26            TRUE
+6   Subject_6    134     116     -18            TRUE
+7   Subject_7    118     113      -5            TRUE
+8   Subject_8    126     111     -15            TRUE
+9   Subject_9    114     119       5            TRUE
+10 Subject_10    127     117     -10            TRUE
+11 Subject_11    141     101     -40            TRUE
+12 Subject_12    138     119     -19            TRUE
+13 Subject_13    128     130       2           FALSE
+14 Subject_14    140     122     -18           FALSE
+15 Subject_15    137     106     -31            TRUE
+16 Subject_16    131     106     -25            TRUE
+17 Subject_17    120     124       4           FALSE
+18 Subject_18    128     102     -26            TRUE
+19 Subject_19    139     117     -22            TRUE
+20 Subject_20    135     113     -22            TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#one line command for placebo with pre treatment data</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>element_list<span class="sc">$</span>placebo<span class="sc">$</span>placebo_pre</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 138 135 147 117 152 134 114 121 131 130</code></pre>
+</div>
+</div>
+</section>
+<section id="task-4" class="level2">
+<h2 class="anchored" data-anchor-id="task-4">Task 4</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#adding new column to treatment dataframe</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>element_list<span class="sc">$</span>treatment<span class="sc">$</span>status <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="dv">20</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#creating loop for treatment data frame to add status column</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(element_list<span class="sc">$</span>treatment)) {</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(element_list<span class="sc">$</span>treatment<span class="sc">$</span>post_bp[i] <span class="sc">&lt;=</span> <span class="dv">120</span>) { </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  element_list<span class="sc">$</span>treatment<span class="sc">$</span>status[i] <span class="ot">&lt;-</span> <span class="st">"optimal"</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (element_list<span class="sc">$</span>treatment<span class="sc">$</span>post_bp[i] <span class="sc">&lt;=</span> <span class="dv">130</span>){</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  element_list<span class="sc">$</span>treatment<span class="sc">$</span>status[i] <span class="ot">&lt;-</span> <span class="st">"borderline"</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  element_list<span class="sc">$</span>treatment<span class="sc">$</span>status[i] <span class="ot">&lt;-</span> <span class="st">"high"</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>} }</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>element_list<span class="sc">$</span>treatment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     subjects pre_bp post_bp diff_bp post_bp_less120     status
+1   Subject_1    130     114     -16            TRUE    optimal
+2   Subject_2    128      98     -30            TRUE    optimal
+3   Subject_3    116     113      -3            TRUE    optimal
+4   Subject_4    124      99     -25            TRUE    optimal
+5   Subject_5    133     107     -26            TRUE    optimal
+6   Subject_6    134     116     -18            TRUE    optimal
+7   Subject_7    118     113      -5            TRUE    optimal
+8   Subject_8    126     111     -15            TRUE    optimal
+9   Subject_9    114     119       5            TRUE    optimal
+10 Subject_10    127     117     -10            TRUE    optimal
+11 Subject_11    141     101     -40            TRUE    optimal
+12 Subject_12    138     119     -19            TRUE    optimal
+13 Subject_13    128     130       2           FALSE borderline
+14 Subject_14    140     122     -18           FALSE borderline
+15 Subject_15    137     106     -31            TRUE    optimal
+16 Subject_16    131     106     -25            TRUE    optimal
+17 Subject_17    120     124       4           FALSE borderline
+18 Subject_18    128     102     -26            TRUE    optimal
+19 Subject_19    139     117     -22            TRUE    optimal
+20 Subject_20    135     113     -22            TRUE    optimal</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#adding new column to placebo dataframe</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>element_list<span class="sc">$</span>placebo<span class="sc">$</span>status <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="dv">10</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#creating loop for treatment data frame to add status column</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(element_list<span class="sc">$</span>placebo)) {</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(element_list<span class="sc">$</span>placebo<span class="sc">$</span>placebo_post[i] <span class="sc">&lt;=</span> <span class="dv">120</span>) { </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  element_list<span class="sc">$</span>placebo<span class="sc">$</span>status[i] <span class="ot">&lt;-</span> <span class="st">"optimal"</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (element_list<span class="sc">$</span>placebo<span class="sc">$</span>placebo_post[i] <span class="sc">&lt;=</span> <span class="dv">130</span>){</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  element_list<span class="sc">$</span>placebo<span class="sc">$</span>status[i] <span class="ot">&lt;-</span> <span class="st">"borderline"</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  element_list<span class="sc">$</span>placebo<span class="sc">$</span>status[i] <span class="ot">&lt;-</span> <span class="st">"high"</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>} }</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>element_list<span class="sc">$</span>placebo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   placebo_subjects placebo_pre placebo_post placebo_diff_bp
+1         Subject_1         138          105             -33
+2         Subject_2         135          136               1
+3         Subject_3         147          123             -24
+4         Subject_4         117          130              13
+5         Subject_5         152          134             -18
+6         Subject_6         134          143               9
+7         Subject_7         114          135              21
+8         Subject_8         121          139              18
+9         Subject_9         131          120             -11
+10       Subject_10         130          124              -6
+   placebo_post_bp_less120     status
+1                     TRUE    optimal
+2                    FALSE       high
+3                    FALSE borderline
+4                    FALSE borderline
+5                    FALSE       high
+6                    FALSE       high
+7                    FALSE       high
+8                    FALSE       high
+9                    FALSE    optimal
+10                   FALSE borderline</code></pre>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

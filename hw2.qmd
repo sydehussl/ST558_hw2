@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-##Task 1
+## Task 1
 
 ```{r}
 #creating bp vectors pre-treatment
@@ -32,11 +32,11 @@ mean(subset_data)
 
 ```
 
-##task 2
+## Task 2
 
 ```{r}
 #creating data frame
-bp <- data.frame(subjects, pre_bp, post_bp, diff_bp)
+bp <- data.frame(subjects=bp_subjects, pre_bp, post_bp, diff_bp)
 
 subset_data <- bp[bp$diff_bp < 0,]
 subset_data
@@ -51,7 +51,7 @@ knitr::kable(bp)
 
 ```
 
-##task 3
+## Task 3
 
 ```{r}
 #creating vectors
@@ -84,11 +84,11 @@ element_list$treatment
 element_list$placebo$placebo_pre
 ```
 
-##task 4
+## Task 4
 
 ```{r}
 #adding new column to treatment dataframe
-element_list$treatment$status <- character(10)
+element_list$treatment$status <- character(20)
 
 #creating loop for treatment data frame to add status column
 for (i in 1:nrow(element_list$treatment)) {
