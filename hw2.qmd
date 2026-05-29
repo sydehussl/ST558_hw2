@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-Task 1
+##Task 1
 
 ```{r}
 #creating bp vectors pre-treatment
@@ -13,7 +13,7 @@ pre_bp <- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140
 #creating bp vectors post-treatment
 post_bp <- c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)
 
-paste("Subject", 1:20, sep = "_")
+bp_subjects <- paste("Subject", 1:20, sep = "_")
 
 
 
@@ -22,7 +22,9 @@ diff_bp <- post_bp-pre_bp
   
 diff_bp
 
+#mean of difference
 mean(diff_bp)
+
 
 subset_data <- which(diff_bp > 0)
 
@@ -30,8 +32,10 @@ mean(subset_data)
 
 ```
 
-task 2
+##task 2
+
 ```{r}
+#creating data frame
 bp <- data.frame(subjects, pre_bp, post_bp, diff_bp)
 
 subset_data <- bp[bp$diff_bp < 0,]
@@ -47,3 +51,70 @@ knitr::kable(bp)
 
 ```
 
+##task 3
+
+```{r}
+#creating vectors
+placebo_pre <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+placebo_post <-c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+placebo_subjects <- paste("Subject", 1:10, sep = "_")
+
+#calculating difference
+placebo_diff_bp <- placebo_post-placebo_pre
+
+#creating data frame
+placebo <-data.frame(placebo_subjects, placebo_pre, placebo_post, placebo_diff_bp)
+subset_data <- placebo[placebo$placebo_diff_bp < 0,]
+subset_data
+
+
+placebo$placebo_post_bp_less120 <- placebo$placebo_post < 120 
+placebo
+
+#creating list with both data frames
+element_list <-list(treatment = bp, placebo = placebo)
+element_list
+
+#accessing list three different ways
+element_list[[1]]
+element_list[["treatment"]]
+element_list$treatment
+
+#one line command for placebo with pre treatment data
+element_list$placebo$placebo_pre
+```
+
+##task 4
+
+```{r}
+#adding new column to treatment dataframe
+element_list$treatment$status <- character(10)
+
+#creating loop for treatment data frame to add status column
+for (i in 1:nrow(element_list$treatment)) {
+if(element_list$treatment$post_bp[i] <= 120) { 
+  element_list$treatment$status[i] <- "optimal"
+} else if (element_list$treatment$post_bp[i] <= 130){
+  element_list$treatment$status[i] <- "borderline"
+} else {
+  element_list$treatment$status[i] <- "high"
+} }
+
+element_list$treatment
+
+
+#adding new column to placebo dataframe
+element_list$placebo$status <- character(10)
+
+#creating loop for treatment data frame to add status column
+for (i in 1:nrow(element_list$placebo)) {
+if(element_list$placebo$placebo_post[i] <= 120) { 
+  element_list$placebo$status[i] <- "optimal"
+} else if (element_list$placebo$placebo_post[i] <= 130){
+  element_list$placebo$status[i] <- "borderline"
+} else {
+  element_list$placebo$status[i] <- "high"
+} }
+
+element_list$placebo
+```
