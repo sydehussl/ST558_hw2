@@ -1,0 +1,49 @@
+---
+title: "HW2"
+format: html
+editor: visual
+---
+
+Task 1
+
+```{r}
+#creating bp vectors pre-treatment
+pre_bp <- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)
+
+#creating bp vectors post-treatment
+post_bp <- c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)
+
+paste("Subject", 1:20, sep = "_")
+
+
+
+#calculating difference
+diff_bp <- post_bp-pre_bp
+  
+diff_bp
+
+mean(diff_bp)
+
+subset_data <- which(diff_bp > 0)
+
+mean(subset_data)
+
+```
+
+task 2
+```{r}
+bp <- data.frame(subjects, pre_bp, post_bp, diff_bp)
+
+subset_data <- bp[bp$diff_bp < 0,]
+subset_data
+
+
+bp$post_bp_less120 <- bp$post_bp < 120 
+bp
+
+
+knitr::kable(bp)
+
+
+```
+
