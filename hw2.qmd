@@ -118,3 +118,14 @@ if(element_list$placebo$placebo_post[i] <= 120) {
 
 element_list$placebo
 ```
+## Task 5
+```{r}
+bp_stats<- function(list, stat = "mean"){
+  treatment_summary <- list$treatment[c("pre_bp", "post_bp", "diff_bp")]
+  placebo_summary <- list$placebo[c("placebo_pre", "placebo_post", "placebo_diff_bp")]
+ 
+  return(list(treatment = treatment_summary, placebo = placebo_summary))
+} 
+ 
+```
+
